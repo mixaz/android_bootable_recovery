@@ -167,6 +167,8 @@
 #endif
 
 #define SCRIPT_FILE_TMP "/tmp/openrecoveryscript"
+#define SCRIPT_FILE_SDCARD1 "/sdcard1/recovery/openrecoveryscript"
+#define SETTINGS_FILE_SDCARD1 "/sdcard1/TWRP/.twrps"
 #define TMP_LOG_FILE "/tmp/recovery.log"
 
 #endif  // _VARIABLES_HEADER_

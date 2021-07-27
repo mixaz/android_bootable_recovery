@@ -82,7 +82,26 @@ int OpenRecoveryScript::check_for_script_file(void) {
 		unlink(orsFile.c_str());
 		return 1;
 	}
-	return 0;
+    return check_for_script_file_on_sdcard1();
+}
+
+// Copy script from sd card
+int OpenRecoveryScript::check_for_script_file_on_sdcard1(void) {
+    // FIXME: do not use hadrcoded path for external sd card
+    if (!PartitionManager.Mount_By_Path(SCRIPT_FILE_SDCARD1, false)) {
+        LOGINFO("Unable to mount /sdcard1 for OpenRecoveryScript support.\n");
+        gui_msg(Msg(msg::kError, "unable_to_mount=Unable to mount {1}")("/sdcard1"));
+        return 0;
+    }
+    if (TWFunc::Path_Exists(SCRIPT_FILE_SDCARD1)) {
+        LOGINFO("Script file found: '%s'\n", SCRIPT_FILE_SDCARD1);
+        // Copy script file to /tmp
+        TWFunc::copy_file(SCRIPT_FILE_SDCARD1, SCRIPT_FILE_TMP, 0755);
+        // Delete the file from cache
+        unlink(SCRIPT_FILE_SDCARD1);
+        return 1;
+    }
+    return 0;
 }
 
 int OpenRecoveryScript::copy_script_file(string filename) {

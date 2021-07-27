@@ -395,9 +395,10 @@ public:
 	bool Repack_Images(const std::string& Target_Image, const struct Repack_Options_struct& Repack_Options); // Repacks the boot image with a new kernel or a new ramdisk
 	std::vector<users_struct>* Get_Users_List();                              // Returns pointer to list of users
 	int Set_FDE_Encrypt_Status();                                             // Sets encryption state for FDE devices (ro.crypto.state and ro.crypto.type)
+    // Sets up settings storage
+    void Setup_Settings_Storage_Partition(TWPartition* Part);
 
 private:
-	void Setup_Settings_Storage_Partition(TWPartition* Part);                 // Sets up settings storage
 	void Setup_Android_Secure_Location(TWPartition* Part);                    // Sets up .android_secure if needed
 	bool Backup_Partition(struct PartitionSettings *part_settings);           // Backup the partitions based on type
 	TWPartition* Find_Partition_By_MTP_Storage_ID(unsigned int Storage_ID);   // Returns a pointer to a partition based on MTP Storage ID

@@ -328,6 +328,13 @@ int main(int argc, char **argv) {
 	// Fixup the RTC clock on devices which require it
 	if (crash_counter == 0) TWFunc::Fixup_Time_On_Boot();
 
+	// id there's settings file on sdcard1, let's use it (dirty code!)
+//    TWPartition* sdcard1_part = PartitionManager.Find_Partition_By_Path("/sdcard1");
+//	if (sdcard1_part != NULL
+//	    && PartitionManager.Mount_By_Path(SETTINGS_FILE_SDCARD1, false)
+//	    && TWFunc::Path_Exists(SETTINGS_FILE_SDCARD1)) {
+//            PartitionManager.Setup_Settings_Storage_Partition(sdcard1_part);
+//    }
 	// Read the settings file
 	TWFunc::Update_Log_File();
 	DataManager::LoadTWRPFolderInfo();
@@ -342,7 +349,8 @@ int main(int argc, char **argv) {
 	std::string orsFile = cacheDir + "/recovery/openrecoveryscript";
 
 	if (TWFunc::Path_Exists(SCRIPT_FILE_TMP) ||
-	(DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 && TWFunc::Path_Exists(orsFile))) {
+	    (DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 &&
+	        (TWFunc::Path_Exists(orsFile) || TWFunc::Path_Exists(SCRIPT_FILE_SDCARD1)))) {
 		OpenRecoveryScript::Run_OpenRecoveryScript();
 	}
 
@@ -408,8 +416,12 @@ int main(int argc, char **argv) {
 	TWFunc::Disable_Stock_Recovery_Replace();
 #endif
 
-	// Reboot
-	TWFunc::Update_Intent_File(Send_Intent);
+//    if (sdcard1_part != NULL) {
+//        PartitionManager.UnMount_By_Path(SETTINGS_FILE_SDCARD1, false);
+//    }
+
+    // Reboot
+    TWFunc::Update_Intent_File(Send_Intent);
 	delete adb_bu_fifo;
 	TWFunc::Update_Log_File();
 	gui_msg(Msg("rebooting=Rebooting..."));

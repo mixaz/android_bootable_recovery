@@ -29,6 +29,7 @@ class OpenRecoveryScript
 	static VoidFunction call_after_cli_command;                                    // callback to GUI after Run_CLI_Command
 
 	static int check_for_script_file();                                            // Checks to see if the ORS file is present in /cache
+    static int check_for_script_file_on_sdcard1(void);
 	static int copy_script_file(string filename);                                  // Copies a script file to the temp folder
 	static int run_script_file();                                                  // Executes the commands in the ORS file
 	static int Install_Command(string Zip);                                        // Installs a zip
