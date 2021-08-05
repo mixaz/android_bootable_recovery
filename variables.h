@@ -146,6 +146,8 @@
 #define TW_NO_SHA2                  "tw_no_sha2"
 #define TW_UNMOUNT_SYSTEM           "tw_unmount_system"
 
+#define TW_SCRIPT_ON_SDCARD1        "tw_script_on_sdcard1"
+
 // Also used:
 //   tw_boot_is_mountable
 //   tw_system_is_mountable
@@ -167,8 +169,9 @@
 #endif
 
 #define SCRIPT_FILE_TMP "/tmp/openrecoveryscript"
-#define SCRIPT_FILE_SDCARD1 "/sdcard1/recovery/openrecoveryscript"
-#define SETTINGS_FILE_SDCARD1 "/sdcard1/TWRP/.twrps"
 #define TMP_LOG_FILE "/tmp/recovery.log"
+
+#define RECOVERY_DIR_SDCARD1 "/sdcard1/TWRP/"
+#define SCRIPT_FILE_SDCARD1 RECOVERY_DIR_SDCARD1 "openrecoveryscript"
 
 #endif  // _VARIABLES_HEADER_

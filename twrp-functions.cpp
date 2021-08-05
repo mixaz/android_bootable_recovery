@@ -607,6 +607,10 @@ void TWFunc::Update_Log_File(void) {
 	chmod(logCopy.c_str(), 0600);
 	chmod(lastLogCopy.c_str(), 0640);
 
+	if( DataManager::GetIntValue(TW_SCRIPT_ON_SDCARD1) ) {
+        copy_file(logCopy, RECOVERY_DIR_SDCARD1 "log.gz", 600);
+	}
+
 	// Reset bootloader message
 	TWPartition* Part = PartitionManager.Find_Partition_By_Path("/misc");
 	if (Part != NULL) {

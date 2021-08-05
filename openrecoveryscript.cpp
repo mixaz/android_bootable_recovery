@@ -97,8 +97,9 @@ int OpenRecoveryScript::check_for_script_file_on_sdcard1(void) {
         LOGINFO("Script file found: '%s'\n", SCRIPT_FILE_SDCARD1);
         // Copy script file to /tmp
         TWFunc::copy_file(SCRIPT_FILE_SDCARD1, SCRIPT_FILE_TMP, 0755);
-        // Delete the file from cache
+        TWFunc::copy_file(SCRIPT_FILE_SDCARD1, SCRIPT_FILE_SDCARD1 ".done", 0755);
         unlink(SCRIPT_FILE_SDCARD1);
+        DataManager::SetValue(TW_SCRIPT_ON_SDCARD1, 1);
         return 1;
     }
     return 0;
