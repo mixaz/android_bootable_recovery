@@ -847,7 +847,8 @@ int GUIAction::appenddatetobackupname(std::string arg __unused)
 int GUIAction::generatebackupname(std::string arg __unused)
 {
 	operation_start("GenerateBackupName");
-	TWFunc::Auto_Generate_Backup_Name();
+    DataManager::SetValue(TW_BACKUP_NAME, "");
+//	TWFunc::Auto_Generate_Backup_Name();
 	operation_end(0);
 	return 0;
 }
